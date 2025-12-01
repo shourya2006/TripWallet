@@ -216,6 +216,8 @@ const AppPage = () => {
           </div>
         </div>
 
+        <div className="w-full h-px bg-gradient-to-r from-transparent via-white/20 to-transparent my-12"></div>
+
         <div className="flex justify-center mb-20">
           <button
             onClick={openModal}
