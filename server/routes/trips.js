@@ -55,7 +55,6 @@ router.get("/", auth, async (req, res) => {
 
     const count = await Trip.countDocuments(query);
 
-    // Calculate totals and shares
     const tripIds = trips.map((t) => t._id);
     const expenses = await Expense.find({ tripId: { $in: tripIds } });
 
@@ -64,13 +63,10 @@ router.get("/", auth, async (req, res) => {
         (e) => e.tripId.toString() === trip._id.toString()
       );
       const total = tripExpenses.reduce((sum, e) => sum + e.amount, 0);
-      const participantCount = trip.participants.length || 1; // Avoid division by zero
-      const share = total / participantCount;
 
       return {
         ...trip,
         total,
-        share: Math.round(share * 100) / 100,
       };
     });
 
@@ -106,11 +102,8 @@ router.get("/:id", auth, async (req, res) => {
 
     const expenses = await Expense.find({ tripId: trip._id });
     const total = expenses.reduce((sum, e) => sum + e.amount, 0);
-    const participantCount = trip.participants.length || 1;
-    const share = total / participantCount;
 
     trip.total = total;
-    trip.share = Math.round(share * 100) / 100;
 
     res.json(trip);
   } catch (err) {

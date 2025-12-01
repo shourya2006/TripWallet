@@ -461,10 +461,6 @@ const TripDetailsPage = () => {
                   <span className="text-white/60">Total Budget</span>
                   <span>₹{trip.total.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-white/60">Your Share</span>
-                  <span>₹{trip.share.toLocaleString()}</span>
-                </div>
               </div>
             </div>
 

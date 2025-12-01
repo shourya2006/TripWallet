@@ -262,10 +262,6 @@ const AppPage = () => {
                       <div className="text-white/40 text-xs">Total:</div>
                       <div>₹{trip.total.toLocaleString()}</div>
                     </div>
-                    <div className="text-right">
-                      <div className="text-white/40 text-xs">My Share:</div>
-                      <div>₹{trip.share.toLocaleString()}</div>
-                    </div>
                   </div>
                 </div>
               ))}
