@@ -37,9 +37,12 @@ const TripDetailsPage = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const tripRes = await fetch(`http://localhost:3001/api/trips/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const tripRes = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/trips/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (tripRes.ok) {
         const data = await tripRes.json();
         setTrip(data);
@@ -50,9 +53,12 @@ const TripDetailsPage = () => {
         return;
       }
 
-      const expRes = await fetch(`http://localhost:3001/api/expenses/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const expRes = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/expenses/${id}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (expRes.ok) {
         const expData = await expRes.json();
         setExpenses(expData);
@@ -72,14 +78,17 @@ const TripDetailsPage = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3001/api/trips/${id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify(editForm),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/trips/${id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(editForm),
+        }
+      );
 
       if (response.ok) {
         const updatedTrip = await response.json();
@@ -104,10 +113,13 @@ const TripDetailsPage = () => {
   const confirmDeleteTrip = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch(`http://localhost:3001/api/trips/${id}`, {
-        method: "DELETE",
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/trips/${id}`,
+        {
+          method: "DELETE",
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (response.ok) {
         navigate("/app");
       }
@@ -129,7 +141,7 @@ const TripDetailsPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/api/trips/${id}/leave`,
+        `${import.meta.env.VITE_API_URL}/api/trips/${id}/leave`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },
@@ -156,7 +168,7 @@ const TripDetailsPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/api/expenses/${expenseId}`,
+        `${import.meta.env.VITE_API_URL}/api/expenses/${expenseId}`,
         {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
@@ -185,17 +197,20 @@ const TripDetailsPage = () => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3001/api/expenses", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          ...newExpense,
-          tripId: id,
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/expenses`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            ...newExpense,
+            tripId: id,
+          }),
+        }
+      );
 
       if (response.ok) {
         setIsExpenseModalOpen(false);
@@ -218,7 +233,7 @@ const TripDetailsPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/api/users/search?query=${query}`,
+        `${import.meta.env.VITE_API_URL}/api/users/search?query=${query}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -242,7 +257,7 @@ const TripDetailsPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/api/trips/${id}/participants`,
+        `${import.meta.env.VITE_API_URL}/api/trips/${id}/participants`,
         {
           method: "POST",
           headers: {

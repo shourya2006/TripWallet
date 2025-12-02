@@ -11,9 +11,12 @@ const Navbar = () => {
   const fetchNotifications = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3001/api/notifications", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/notifications`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setNotifications(data);
@@ -34,7 +37,7 @@ const Navbar = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/api/notifications/${id}/${action}`,
+        `${import.meta.env.VITE_API_URL}/api/notifications/${id}/${action}`,
         {
           method: "POST",
           headers: { Authorization: `Bearer ${token}` },

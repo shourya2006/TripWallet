@@ -28,11 +28,14 @@ const AppPage = () => {
   const fetchTrips = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3001/api/trips", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/trips`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         if (Array.isArray(data)) {
@@ -53,11 +56,14 @@ const AppPage = () => {
   const fetchBalance = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await fetch("http://localhost:3001/api/users/balance", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/users/balance`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
         setBalance(data);
@@ -107,20 +113,23 @@ const AppPage = () => {
         options
       )} - ${end.toLocaleDateString("en-US", options)}, ${end.getFullYear()}`;
 
-      const response = await fetch("http://localhost:3001/api/trips", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          title: newTrip.title,
-          date: dateString,
-          startDate: newTrip.startDate,
-          endDate: newTrip.endDate,
-          participants: selectedFriends.map((f) => f._id),
-        }),
-      });
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/api/trips`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            title: newTrip.title,
+            date: dateString,
+            startDate: newTrip.startDate,
+            endDate: newTrip.endDate,
+            participants: selectedFriends.map((f) => f._id),
+          }),
+        }
+      );
 
       if (response.ok) {
         setIsModalOpen(false);
@@ -153,7 +162,7 @@ const AppPage = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await fetch(
-        `http://localhost:3001/api/users/search?query=${query}`,
+        `${import.meta.env.VITE_API_URL}/api/users/search?query=${query}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

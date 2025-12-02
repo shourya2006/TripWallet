@@ -33,7 +33,7 @@ const TripsPage = () => {
         });
 
         const response = await fetch(
-          `http://localhost:3001/api/trips?${params}`,
+          `${import.meta.env.VITE_API_URL}/api/trips?${params}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
